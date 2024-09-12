@@ -3,24 +3,30 @@
 //
 
 #include "ChessAnimation.h"
-#include <QStateMachine>
-#include <QState>
-#include <QParallelAnimationGroup>
+#include <QState>>
 #include <QEasingCurve>
 #include <QPropertyAnimation>
-#include <QTimer>
+#include <QSequentialAnimationGroup>
 
 namespace GameFourInARow {
     void ChessAnimation::addAnimation(ChessMan *chess, QGraphicsScene* scene) {
+        auto pos_orig = chess->scenePos();
         auto pos_init = chess->getPosInit();
         auto pos_final = chess->getPosFinal();
 
         QPropertyAnimation *animation = new QPropertyAnimation(chess, "pos");
-        animation->setDuration(1000);
-        animation->setStartValue(pos_init);
-        animation->setEndValue(pos_final);
-        animation->start();
+        animation->setDuration(500);
+        animation->setStartValue(pos_orig);
+        animation->setEndValue(pos_init);
 
-        scene->addItem(chess);
+        QPropertyAnimation *animation2 = new QPropertyAnimation(chess, "pos");
+        animation2->setDuration(500);
+        animation2->setStartValue(pos_init);
+        animation2->setEndValue(pos_final);
+
+        QSequentialAnimationGroup* animation_group = new QSequentialAnimationGroup();
+        animation_group->addAnimation(animation);
+        animation_group->addAnimation(animation2);
+        animation_group->start();
     }
 }

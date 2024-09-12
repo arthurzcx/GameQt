@@ -13,10 +13,11 @@ namespace GameFourInARow {
     }
 
     void ChessBoard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+        painter->setRenderHint(QPainter::Antialiasing);
         auto pen = painter->pen();
         pen.setWidth(3);
         pen.setColor(Qt::green);
-        painter->setBrush(Qt::NoBrush);
+        painter->setBrush(Qt::green);
         painter->setPen(pen);
 
         auto rt = rect();
@@ -27,11 +28,13 @@ namespace GameFourInARow {
             memset(arr_chess_, 0x00, rows_ * cols_ * sizeof(ChessPlayer));
         }
 
-        for (auto y = 0; y <= rt.height(); y += grid_size_) {
-            painter->drawLine(0, y, rt.width(), y);
-        }
-        for (auto x = 0; x <= rt.width(); x += grid_size_) {
-            painter->drawLine(x, 0, x, rt.height());
+        painter->drawRoundedRect(rt,20,20);
+
+        painter->setBrush(Qt::white);
+        for (auto y = 0; y < rt.height(); y += grid_size_) {
+            for (auto x = 0; x < rt.width(); x += grid_size_) {
+                painter->drawEllipse(x + 5, y + 5, 40, 40);
+            }
         }
     }
 

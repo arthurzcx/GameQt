@@ -22,16 +22,17 @@ namespace GameFourInARow {
         winner_grids_.clear();
         player_cur_ = ChessPlayer::First;
         if (scene()->items().size() < 2) {
+//            auto board_size = std::min(rect().width() * 0.8, rect().height() * 0.8);
+            auto board = new ChessBoard;
+            board->setGeometry(40, 100, 400, 400);
+            scene()->addItem(board);
+
             head_man_ = new ChessMan(ChessPlayer::First);
             head_man_->setPos(225, 50);
             scene()->addItem(head_man_);
 
             head_text_ = scene()->addText(tr("Player ") + (player_cur_ == ChessPlayer::First ? "1" : "2"));
             head_text_->setPos(50, 50);
-
-            auto board = new ChessBoard;
-            board->setGeometry(50, 100, 400, 400);
-            scene()->addItem(board);
         }
     }
 
@@ -53,13 +54,13 @@ namespace GameFourInARow {
                     if (board->getGridAvailable(pos, grid, player_cur_)) {
                         auto pos_grid = board->getGridPos(grid);
                         auto pos_grid_init = board->getGridPosInit(grid);
-                        auto item_chess = new ChessMan(player_cur_);
+                        auto item_chess = head_man_;
                         auto size_chess = item_chess->getSize();
                         auto x_offset = (board->getGridSize() - size_chess) / 2.0;
                         auto y_offset = (board->getGridSize() - size_chess) / 2.0;
                         QPointF pos_final = {pos_grid.x() + x_offset, pos_grid.y() + y_offset};
                         item_chess->setPosFinal(pos_final);
-                        QPointF pos_init = {pos_grid_init.x() + x_offset, pos_grid_init.y() + y_offset};
+                        QPointF pos_init = {pos_grid_init.x() + x_offset, 50};
                         item_chess->setPosInit(pos_init);
                         ChessAnimation::addAnimation(item_chess, scene());
                         if (board->isPlayerWin(grid, player_cur_, winner_grids_)) {
@@ -81,7 +82,9 @@ namespace GameFourInARow {
                         }
                         player_cur_ = (player_cur_ == ChessPlayer::First) ? ChessPlayer::Second
                                                                           : ChessPlayer::First;
-                        head_man_->setChessPlayer(player_cur_);
+                        head_man_ = new ChessMan(player_cur_);
+                        head_man_->setPos(225, 50);
+                        scene()->addItem(head_man_);
                         head_text_->setPlainText(tr("Player ") + (player_cur_ == ChessPlayer::First ? "1" : "2"));
                     }
                 }

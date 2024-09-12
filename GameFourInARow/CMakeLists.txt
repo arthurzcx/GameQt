@@ -21,6 +21,7 @@ add_executable(
         src/ChessBoard.cpp
         src/ChessView.cpp
         src/ChessAnimation.cpp
+        src/ChessScene.cpp
 )
 target_link_libraries(GameFourInARow
         Qt5::Core

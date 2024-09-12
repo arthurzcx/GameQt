@@ -5,6 +5,7 @@
 #include "ChessMan.h"
 #include "ChessBoard.h"
 #include "ChessView.h"
+#include "ChessScene.h"
 
 using namespace GameFourInARow;
 
