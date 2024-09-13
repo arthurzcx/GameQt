@@ -11,11 +11,21 @@
 namespace GameFourInARow {
     class ChessBoard : public QGraphicsWidget {
     public:
+        ChessBoard(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::WindowFlags());
         ~ChessBoard();
 
         struct Grid {
             int x_ = 0;
             int y_ = 0;
+            int size_ = 50;
+            int row_ = 0;
+            int col_ = 0;
+            ChessPlayer player_ = ChessPlayer::None;
+
+            Grid() :
+                    x_(0), y_(0), size_(50), player_(ChessPlayer::None) {}
+            Grid(int x, int y, int size, ChessPlayer player) :
+                    x_(x), y_(y), size_(size), player_(player) {}
         };
 
     public:
@@ -25,6 +35,7 @@ namespace GameFourInARow {
         int getGridSize();
         QPoint getGridPos(const Grid &grid);
         QPoint getGridPosInit(const Grid &grid);
+        void setBoardSize(int pos_x, int pos_y, int size);
 
         bool getGridAvailable(const QPoint &pos, Grid &grid, ChessPlayer type);
         bool isPlayerWin(const Grid &grid, ChessPlayer type, std::vector<Grid> &win_grids);
@@ -38,9 +49,12 @@ namespace GameFourInARow {
         bool isPositive45Win(int cur_row, int cur_col, ChessPlayer type, std::vector<Grid> &win_grids);
 
     private:
+        QPoint pos_;
+        QSize size_;
         int rows_ = 8;
         int cols_ = 8;
         int grid_size_ = 50;
-        ChessPlayer *arr_chess_ = nullptr;
+        int space_ = 5;
+        std::vector<std::vector<Grid>> grids_{};
     };
 }

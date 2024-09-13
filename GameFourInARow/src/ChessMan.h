@@ -9,7 +9,8 @@
 namespace GameFourInARow {
 
     enum class ChessPlayer {
-        First = 1,
+        None = 0,
+        First,
         Second,
         Win
     };
@@ -20,6 +21,7 @@ namespace GameFourInARow {
 
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         int getSize();
+        void setSize(int size);
 
         void setChessPlayer(ChessPlayer type);
         ChessPlayer getChessPlayer();

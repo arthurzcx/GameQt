@@ -3,7 +3,7 @@
 //
 
 #include "ChessAnimation.h"
-#include <QState>>
+#include <QState>
 #include <QEasingCurve>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
