@@ -1,0 +1,8 @@
+<!DOCTYPE RCC> <RCC version="1.0">
+    <qresource>
+        <file>res/audio/audio_chess_drop.mp3</file>
+        <file>res/audio/audio_background.mp3</file>
+        <file>res/img/1.png</file>
+        <file>res/img/2.png</file>
+    </qresource>
+</RCC>

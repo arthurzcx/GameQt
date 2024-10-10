@@ -1,11 +1,22 @@
-//
-// Created by arthur on 9/6/24.
-//
-
+/*
+ * Copyright (C) 2024 Arthur Zhang <arthur.zhang.cx@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 #pragma once
 
 #include "ChessMan.h"
-
 #include <QGraphicsWidget>
 
 namespace GameFourInARow {
@@ -39,7 +50,7 @@ namespace GameFourInARow {
 
         bool getGridAvailable(const QPoint &pos, Grid &grid, ChessPlayer type);
         bool isPlayerWin(const Grid &grid, ChessPlayer type, std::vector<Grid> &win_grids);
-        /// Warning: After the function isPlayerWin(...) called, and then you can call this function to verify if it is a draw.
+        /// After the function isPlayerWin(...) called, and then you can call this function to verify if it is a draw.
         bool isMatchDraw();
 
     private:

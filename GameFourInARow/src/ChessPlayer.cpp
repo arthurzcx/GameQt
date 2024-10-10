@@ -14,16 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-#include "ChessScene.h"
-
-#include <QBrush>
+#include "ChessPlayer.h"
 #include <QPainter>
 
 namespace GameFourInARow {
 
-    ChessScene::ChessScene(qreal x, qreal y, qreal width, qreal height, QObject *parent) :
-            QGraphicsScene(x, y, width, height, parent) {
-        setBackgroundBrush(Qt::green);
+    ChessPlayerIcon::ChessPlayerIcon(ChessPlayer player, QGraphicsItem *parent, Qt::WindowFlags wFlags)
+            : QGraphicsWidget(parent, wFlags),
+              player_(player) {
+
+    }
+
+    void ChessPlayerIcon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+        auto rt = rect();
+
+        QImage img(player_ == ChessPlayer::First ? ":/res/img/1.png" : ":/res/img/2.png");
+        painter->drawImage(rt, img);
+    }
+
+    void ChessPlayerIcon::setChessPlayer(ChessPlayer player) {
+        player_ = player;
+        update(rect());
     }
 }

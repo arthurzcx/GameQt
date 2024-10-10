@@ -14,16 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#pragma once
 
-#include "ChessScene.h"
-
-#include <QBrush>
-#include <QPainter>
+#include <QtMultimedia/QMultimedia>
+#include <QtMultimedia/QMediaPlayer>
 
 namespace GameFourInARow {
+    enum class AudioType {
+        AudioBk = 0,
+        AudioChessDrop
+    };
 
-    ChessScene::ChessScene(qreal x, qreal y, qreal width, qreal height, QObject *parent) :
-            QGraphicsScene(x, y, width, height, parent) {
-        setBackgroundBrush(Qt::green);
-    }
+    class ChessAudio {
+    private:
+        ChessAudio();
+    public:
+        static ChessAudio *instance();
+
+        void play(AudioType type);
+
+    private:
+        QMediaPlayer *player_ = nullptr;
+        QMediaPlayer *player_bk_ = nullptr;
+    };
 }

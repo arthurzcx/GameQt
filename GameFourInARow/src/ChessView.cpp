@@ -1,11 +1,24 @@
-//
-// Created by arthur on 9/6/24.
-//
-
+/*
+ * Copyright (C) 2024 Arthur Zhang <arthur.zhang.cx@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 #include "ChessView.h"
 #include "ChessBoard.h"
 #include "ChessAnimation.h"
-
+#include "ChessAudio.h"
+#include "ChessPlayer.h"
 #include <QDebug>
 #include <QEvent>
 #include <QMouseEvent>
@@ -36,8 +49,9 @@ namespace GameFourInARow {
 
             initHeadMan();
 
-            head_text_ = scene()->addText(tr("Player ") + (player_cur_ == ChessPlayer::First ? "1" : "2"));
-            head_text_->setPos(50, 50);
+            player_icon_ = new ChessPlayerIcon(player_cur_);
+            player_icon_->setGeometry(5, 5, 100, 100);
+            scene()->addItem(player_icon_);
         }
     }
 
@@ -96,7 +110,7 @@ namespace GameFourInARow {
                     player_cur_ = (player_cur_ == ChessPlayer::First) ? ChessPlayer::Second
                                                                       : ChessPlayer::First;
                     initHeadMan();
-                    head_text_->setPlainText(tr("Player ") + (player_cur_ == ChessPlayer::First ? "1" : "2"));
+                    player_icon_->setChessPlayer(player_cur_);
                 }
 
             }

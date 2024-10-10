@@ -15,15 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "ChessScene.h"
+#pragma once
 
-#include <QBrush>
-#include <QPainter>
+#include "ChessMan.h"
+#include <QGraphicsWidget>
 
 namespace GameFourInARow {
+    class ChessPlayerIcon : public QGraphicsWidget {
+    public:
+        ChessPlayerIcon(ChessPlayer player, QGraphicsItem *parent = nullptr,
+                        Qt::WindowFlags wFlags = Qt::WindowFlags());
 
-    ChessScene::ChessScene(qreal x, qreal y, qreal width, qreal height, QObject *parent) :
-            QGraphicsScene(x, y, width, height, parent) {
-        setBackgroundBrush(Qt::green);
-    }
+        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+
+        void setChessPlayer(ChessPlayer player);
+    private:
+        ChessPlayer player_ = ChessPlayer::First;
+    };
 }
